@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Shoppica.UI.Models.ProductVM>
+
+@foreach (var item in Model)
+{
+    <div class="s_item grid_2">
+        <a class="s_thumb" href="product/getproductdetails/@item.Id">
+            <img src="images/product/@item.Image" title="@item.ProductName" alt="@item.ProductName" />
+        </a>
+        <h3><a href="product/getproductdetails/@item.Id">@item.ProductName</a></h3>
+        <p class="s_model">@item.Category.CategoryName</p>
+
+        @if (item.IsSpecial == true)
+        {
+            <p class="s_price s_promo_price">
+                <span class="s_old_price">
+                    @string.Format("{0:0.00}",@item.UnitPrice) <span class="s_currency s_before">₺</span>
+                </span>
+                @string.Format("{0:0.00}",@item.Discount) <span class="s_currency s_before">₺</span>
+            </p>
+        }
+        else
+        {
+            <p class="s_price"> @string.Format("{0:0.00}",@item.UnitPrice) <span class="s_currency s_before">₺</span></p>
+        }
+
+        <a class="s_button_add_to_cart" href="/cart/CartAdd/@item.Id"><span class="s_icon_16"><span class="s_icon"></span>Sepete Ekle</span></a>
+    </div>
+}

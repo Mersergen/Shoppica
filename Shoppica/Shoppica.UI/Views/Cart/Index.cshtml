@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Shoppica.UI.Models.CartProductVM>
+
+<!-- ********************** -->
+<!--     I N T R O          -->
+<!-- ********************** -->
+<div id="intro">
+    <div id="intro_wrap">
+        <div class="container_12">
+            <div id="breadcrumbs" class="grid_12">
+                <a asp-action="Index" asp-controller="Home">Ana Sayfa</a>
+                &gt; <a href="">Sepet</a>
+            </div>
+            <h1>Sepet İçeriği</h1>
+        </div>
+    </div>
+</div>
+<!-- end of intro -->
+<!-- ********************** -->
+<!--      C O N T E N T     -->
+<!-- ********************** -->
+<div id="content" class="container_12">
+
+    <div id="shopping_cart" class="grid_12">
+
+        <form id="cart" class="clearfix" action="checkout.html">
+            <table class="s_table_1" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <th width="65">İptal</th>
+                    <th width="60">Resim</th>
+                    <th width="320">Ürün Adı</th>
+                    <th>Kategori</th>
+                    <th>Adet</th>
+                    <th>Fiyat</th>
+                    <th>Toplam</th>
+                </tr>
+
+                @{
+                    decimal totals = 0;
+                }
+
+                @foreach (var item in Model)
+                {
+                    totals += (decimal)item.Total;
+
+                    <tr class="even">
+                        <td valign="middle">
+                            <a id="hremove_95" class="s_button_remove" href="/cart/cartDelete/@item.Id">X</a>
+                        </td>
+                        <td valign="middle"><a href="/product/GetProductDetails/@item.ProductId"><img src="/images/product/@item.Image" width="60" height="60" alt="@item.ProductName" /></a></td>
+                        <td valign="middle"><a href="/product/GetProductDetails/@item.ProductId"><strong>@item.ProductName</strong></a></td>
+                        <td valign="middle">@item.CategoryName</td>
+                        <td valign="middle"><input type="text" size="3" readonly value="@item.Quantity" /></td>
+                        <td valign="middle">@string.Format("{0:0.00}",item.UnitPrice)<span class="s_currency s_after"> ₺</span></td>
+                        <td valign="middle">@string.Format("{0:0.00}",item.Total)<span class="s_currency s_after"> ₺</span></td>
+                    </tr>
+
+                }
+
+            </table>
+            <br />
+            @{
+                decimal noTax = totals / (decimal)1.18;
+                decimal tax = totals - noTax;
+            }
+            <p class="s_total"><strong>Toplam:</strong> @string.Format("{0:0.00}",noTax)<span class="s_currency s_after"> ₺</span></p>
+            <p class="s_total"><strong>Vergi %18:</strong> @string.Format("{0:0.00}",tax)<span class="s_currency s_after"> ₺</span></p>
+            <p class="s_total s_secondary_color last"><strong>Genel Toplam:</strong> @string.Format("{0:0.00}",totals)<span class="s_currency s_after"> ₺</span></p>
+
+            <div class="clear"></div>
+            <br />
+
+            <a class="s_button_1 s_ddd_bgr left" asp-action="Index" asp-controller="Home"><span class="s_text">Alışverişe Devam Et!</span></a>
+            <a asp-action="Index" asp-controller="Checkout" class="s_button_1 s_main_color_bgr"><span class="s_text">Sipariş Ver!</span></a>
+            <a class="s_button_1 s_main_color_bgr"><span class="s_text">Güncelle</span></a>
+        </form>
+
+    </div>
+
+    <div class="clear"></div>
+    <br />
+    <br />
+
+</div>
+<!-- end of content -->

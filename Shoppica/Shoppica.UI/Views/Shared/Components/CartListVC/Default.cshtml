@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Shoppica.UI.Models.CartProductVM>
+
+@{
+    decimal totals = 0;
+}
+
+<div id="cart_side_contents">
+
+    @foreach (var item in Model)
+    {
+        <div class="s_cart_item">
+            <a id="hremove_95" class="s_button_remove" href="/cart/cartDelete/@item.Id">&nbsp;</a>
+            <span class="block">@item.Quantity x  <a href="/product/GetProductDetails/@item.ProductId">@item.ProductName</a></span>
+            @{
+                totals += (decimal)item.Total;
+            }
+        </div>
+    }
+    @{
+        decimal noTax = totals / (decimal)1.18;
+        decimal tax = totals - noTax;
+    }
+    <span class="clear s_mb_15 border_eee"></span>
+
+    <div class="s_total clearfix"><strong class="cart_module_total left">Toplam:</strong><span class="cart_module_total">@string.Format("{0:0.00}",noTax)<span class="s_currency s_after"> ₺</span></span></div>
+    <div class="s_total clearfix"><strong class="cart_module_total left">Vergi %18:</strong><span class="cart_module_total">@string.Format("{0:0.00}",tax)<span class="s_currency s_after"> ₺</span></span></div>
+    <div class="s_total clearfix"><strong class="cart_module_total left">Genel Toplam:</strong><span class="cart_module_total">@string.Format("{0:0.00}",totals)<span class="s_currency s_after"> ₺</span></span></div>
+    <span class="clear s_mb_15"></span>
+    <div class="align_center clearfix">
+        <a class="s_button_1 s_secondary_color_bgr s_ml_0" asp-action="Index" asp-controller="Cart"><span class="s_text">Sepete Git</span></a>
+        <a class="s_button_1 s_secondary_color_bgr" asp-action="Index" asp-controller="Checkout"><span class="s_text">Sipariş Ver</span></a>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

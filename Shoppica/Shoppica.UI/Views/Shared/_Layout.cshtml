@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Your Store</title>
+    <meta name="description" content="My Store" />
+    <link rel="stylesheet" type="text/css" href="/css/960.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/css/color.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/css/prettyPhoto.css" media="all" />
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="stylesheet/ie.css" media="screen" />
+    <![endif]-->
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript" src="/js/shoppica.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".s_tabs").tabs({ fx: { opacity: 'toggle', duration: 300 } });
+
+            $("#product_images a[rel^='prettyPhoto'], #product_gallery a[rel^='prettyPhoto']").prettyPhoto({
+                theme: 'light_square',
+                opacity: 0.5
+            });
+
+        });
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (window.PIE) {
+                $('.rounded').each(function () {
+                    PIE.attach(this);
+                });
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#checkout form").accordion({
+                autoHeight: false
+            });
+        });
+    </script>
+</head>
+
+<body class="s_layout_fixed">
+
+    <div id="wrapper">
+
+        <!-- ********************** -->
+        <!--      H E A D E R       -->
+        <!-- ********************** -->
+        <div id="header" class="container_12">
+            <div class="grid_12">
+
+                <a id="site_logo" asp-action="Index" asp-controller="Home">Shoppica store - Premium e-Commerce Theme</a>
+
+                <div id="system_navigation" class="s_nav">
+                    <ul class="s_list_1 clearfix">
+                        <li><a asp-action="Index" asp-controller="Home">Ana Sayfa</a></li>
+                        <li><a href="/Identity/Account/Login">Giriş</a></li>
+                        <li><a asp-action="Index" asp-controller="cart">Sepetim</a></li>
+                        <li><a href="">Hakkımızda</a></li>
+                        <li><a href="">İletişim</a></li>
+                    </ul>
+                    <partial name="_loginPartial" />
+                </div>
+
+                <div id="site_search">
+                    <a id="show_search" href="javascript:;" title="Search:"></a>
+                    <div id="search_bar" class="clearfix">
+                        <form method="post" asp-action="GetSearch" asp-controller="Product">
+                            <input type="text" id="filter_keyword" size="30" style="width:250px;" name="text" />
+                            <button type="submit" class="s_button_1 s_secondary_color_bgr" size="30" style="width:180px;">
+                                <span class="s_text">Ürünlerde ARA!</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="language_switcher" class="s_switcher">
+                    <span class="s_selected">US Dollar</span>
+                    <ul class="s_options">
+                        <li><a href="">Euro</a></li>
+                        <li><a href="">Pound Sterling</a></li>
+                        <li><a href="">US Dollar</a></li>
+                    </ul>
+                </div>
+
+                <div id="currency_switcher" class="s_switcher">
+                    <span class="s_selected"><img src="/images/flags/gb.png" alt="English" /> English</span>
+                    <ul class="s_options">
+                        <li><a href=""><img src="/images/flags/gb.png" alt="English" /> English</a></li>
+                        <li><a href=""><img src="/images/flags/de.png" alt="Deutsch" /> Deutsch</a></li>
+                    </ul>
+                </div>
+
+                <div id="categories" class="s_nav">
+                    <ul>
+                        <li id="menu_home"> <a asp-action="Index" asp-controller="Home">Ana Sayfa</a> </li>
+                        @await Component.InvokeAsync("HeaderVC")
+
+                    </ul>
+                </div>
+
+                <div id="cart_menu" class="s_nav">
+                    <a asp-action="Index" asp-controller="Cart"><span class="s_icon"></span> <small class="s_text">Sepetim</small></a>
+                    <div class="s_submenu s_cart_holder">
+
+                        @await Component.InvokeAsync("CartListVC")
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- end of header -->
+        @RenderBody()
+
+        <!-- ********************** -->
+        <!--      F O O T E R       -->
+        <!-- ********************** -->
+        <div id="footer" class="container_12">
+            <div id="footer_categories" class="clearfix">
+                @await Component.InvokeAsync("FooterVC")
+
+                <div class="clear"></div>
+                <div class="grid_12 border_eee"></div>
+            </div>
+            <div id="payments" class="right clearfix">
+                <img src="/images/payments/discover_straight_32px.png" alt="" />
+                <img src="/images/payments/american_express_straight_32px.png" alt="" />
+                <img src="/images/payments/moneybookers_straight_32px.png" alt="" />
+                <img src="/images/payments/paypal_straight_32px.png" alt="" />
+                <img src="/images/payments/visa_straight_32px.png" alt="" />
+                <img src="/images/payments/american_express_straight_32px.png" alt="" />
+            </div>
+            <p id="copy">&copy; Copyright 2021. Powered by <a class="blue" href="">Open Cart</a>.<br /> <a class="s_main_color" href="http://www.shoppica.net">Shoppica theme</a> made by <a href="http://www.themeburn.com">ThemeBurn.com</a></p>
+        </div>
+        <!-- end of FOOTER -->
+
+    </div>
+
+    <div id="fb-root"></div>
+    <script type="text/javascript">
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '0c18007de6f00f7ecda8c040fb76cd90', status: true, cookie: true,
+                xfbml: true
+            });
+        };
+        (function () {
+            var e = document.createElement('script'); e.async = true;
+            e.src = document.location.protocol +
+                '//connect.facebook.net/en_US/all.js';
+            document.getElementById('fb-root').appendChild(e);
+        }());
+    </script>
+
+</body>
+</html>

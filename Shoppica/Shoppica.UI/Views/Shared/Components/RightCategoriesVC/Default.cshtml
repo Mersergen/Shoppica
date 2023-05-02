@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Shoppica.UI.Models.CategoryVM>
+
+
+@foreach (CategoryVM item in Model)
+{
+    <li>
+        <a href="/product/getproducts/@item.Id"><b>@item.CategoryName</b></a>
+
+        @if (item.Id == ViewBag.Top)
+        {
+            <ul>
+                @foreach (var altItem in item.InverseTop)
+                {
+                    <li><a href="/product/getproducts/@altItem.Id">@altItem.CategoryName</a></li>
+                }
+            </ul>
+        }
+    </li>
+}

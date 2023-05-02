@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Shoppica.UI.Models.CategoryVM>
+
+
+@foreach (CategoryVM item in Model)
+{
+    <li>
+        <a href="/product/getproducts/@item.Id">@item.CategoryName</a>
+        <div class="s_submenu">
+            <h3>@item.CategoryName-Alt Kategori</h3>
+            <ul class="s_list_1 clearfix">
+                @foreach (var altItem in item.InverseTop)
+                {
+                    <li><a href="/product/getproducts/@altItem.Id">@altItem.CategoryName</a></li>
+                }
+            </ul>
+        </div>
+    </li>
+}

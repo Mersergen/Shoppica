@@ -1,0 +1,203 @@
+﻿@model ProductVM
+@{
+    string catName = "";
+    catName = Model.Category.CategoryName;
+    int k;
+    k = (int)Model.Category.TopId;
+}
+
+<!-- ********************** -->
+<!--     I N T R O          -->
+<!-- ********************** -->
+
+<div id="intro">
+    <div id="intro_wrap">
+        <div class="container_12">
+            <div id="breadcrumbs" class="grid_12">
+                <a href="">Ana Sayfa</a>
+                &gt;
+                <a href="">@catName</a>
+            </div>
+            <h1>@catName</h1>
+        </div>
+    </div>
+</div>
+<!-- end of intro -->
+<!-- ********************** -->
+<!--      C O N T E N T     -->
+<!-- ********************** -->
+<div id="content" class="product_view container_16">
+
+    <div id="product" class="grid_12">
+        <div id="product_images" class="grid_6 alpha">
+            <a id="product_image_preview" rel="prettyPhoto[gallery]" href="/images/product/@Model.Image"><img id="image" src="/images/product/@Model.Image" title="@Model.ProductName" alt="@Model.ProductName" /></a>
+        </div>
+        <div id="product_info" class="grid_6 omega">
+
+            @if (Model.IsSpecial == true)
+            {
+                <p class="s_price s_promo_price">
+                    <span class="s_old_price">
+                        @string.Format("{0:0.00}",Model.UnitPrice) <span class="s_currency s_after">₺</span>
+                    </span>
+                    @string.Format("{0:0.00}",Model.Discount) <span class="s_currency s_after">₺</span>
+                </p>
+            }
+            else
+            {
+                <p class="s_price"> @string.Format("{0:0.00}",Model.UnitPrice) <span class="s_currency s_after">₺</span></p>
+            }
+
+            <dl class="clearfix">
+                <dt>Stok</dt>
+                <dd>@Model.UnitInStock Adet</dd>
+                <dt>Kategori</dt>
+                <dd>@Model.Category.CategoryName</dd>
+                <dt>Marka</dt>
+                <dd><a href="#">@Model.Brand.BrandName</a></dd>
+            </dl>
+
+            <div id="product_buy" class="clearfix">
+                <label for="product_buy_quantity">Adet:</label>
+                
+                <form method="post" action="/cart/CartAdd">
+                    <input id="product_buy_quantity" type="text" size="2" value="1" name="quan" />
+                    <input name="id" value="@Model.Id" hidden />
+                    <button type="submit" id="add_to_cart" class="s_main_color_bgr"><span class="s_text"><span class="s_icon"></span> Sepete Ekle</span></button>
+                </form>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="s_tabs grid_12 alpha omega">
+            <ul class="s_tabs_nav clearfix">
+                <li><a href="#product_description">Açıklama</a></li>
+                <li><a href="#product_reviews">Yorumlar (1)</a></li>
+                <li><a href="#product_gallery">Resimler (@Model.ProductImages.Count)</a></li>
+            </ul>
+            <div class="s_tab_box">
+
+                <div id="product_description">
+                    <div class="cpt_product_description ">
+                        @Model.Description
+                    </div>
+                    <!-- cpt_container_end -->
+                </div>
+
+                <div id="product_reviews" class="s_listing">
+                    <div class="s_review last">
+                        <p class="s_author"><strong>Shoppica</strong><small>(29/03/2021)</small></p>
+                        <div class="right">
+                            <div class="s_rating_holder">
+                                <p class="s_rating s_rating_5"><span class="s_percent" style="width: 100%;"></span></p>
+                                <span class="s_average">5 out of 5 Stars!</span>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <p>Vestibulum molestie tellus rhoncus nulla cursus quis dictum orci laoreet! metus. Vestibulum molestie tellus rhoncus nulla cursus quis dictum orci laoreet! metus.</p>
+                    </div>
+                    <div class="pagination"><div class="results">Showing 1 to 1 of 1 (1 Pages)</div></div>
+                    <h2 class="s_title_1"><span class="s_main_color">Write</span> Review</h2>
+                    <div id="review_title" class="clear"></div>
+                    <div class="s_row_3 clearfix">
+                        <label><strong>Your Name:</strong></label>
+                        <input type="text" />
+                    </div>
+                    <div class="s_row_3 clearfix">
+                        <label><strong>Your Review:</strong></label>
+                        <textarea style="width: 98%;" rows="8" cols="50"></textarea>
+                        <p class="s_legend"><span style="color: #FF0000;">Note:</span> HTML is not translated!</p>
+                    </div>
+                    <div class="s_row_3 clearfix">
+                        <label><strong>Rating</strong></label>
+                        <span class="clear"></span> <span>Bad</span>&nbsp;
+                        <input type="radio" />
+                        &nbsp;
+                        <input type="radio" />
+                        &nbsp;
+                        <input type="radio" />
+                        &nbsp;
+                        <input type="radio" />
+                        &nbsp;
+                        <input type="radio" />
+                        &nbsp; <span>Good</span>
+                    </div>
+                    <span class="clear border_ddd"></span>
+                    <a class="s_button_1 s_main_color_bgr"><span class="s_text">Continue</span></a> <span class="clear"></span>
+                </div>
+
+                <div id="product_gallery">
+                    <ul class="s_thumbs clearfix">
+                        @foreach (var item in Model.ProductImages)
+                        {
+
+                            <li><a class="s_thumb" href="/images/product/@item.Image" title="@Model.ProductName" rel="prettyPhoto[gallery]"><img src="/images/product/@item.Image" width="120" title="@Model.ProductName" alt="@Model.ProductName" /></a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="related_products" class="grid_12 alpha omega">
+            <h2 class="s_title_1"><span class="s_main_color">Benzer</span> Ürünler</h2>
+            <div class="clear"></div>
+            <div class="s_grid_view s_listing clearfix">
+
+                @await Component.InvokeAsync("RelatedVC",new{id=Model.Id})
+
+
+                <div class="clear"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="right_col" class="grid_3">
+        <div id="cart_side" class="s_box_1 s_cart_holder">
+            <h2 class="s_secondary_color">Sepetim</h2>
+
+            @await Component.InvokeAsync("CartListVC")
+
+        </div>
+
+        <div id="categories_module" class="s_box">
+            <h2>Kategoriler</h2>
+            <div class="s_list_1">
+                <ul>
+                    @await Component.InvokeAsync("RightCategoriesVC",new{id=k})
+                </ul>
+            </div>
+        </div>
+
+        <div id="brands_module" class="s_box">
+            <h2>Markalar</h2>
+            <select>
+                <option> --- Seçiminiz! --- </option>
+                @await Component.InvokeAsync("BrandVC")
+            </select>
+        </div>
+
+        <div id="bestseller_side" class="s_box clearfix">
+            <h2>Öne Çıkan Ürünler!</h2>
+
+            @await Component.InvokeAsync("FeaturedVC")
+
+
+        </div>
+
+        <div id="information_module" class="s_box">
+            <h2>Bilgilendirme</h2>
+            <ul class="s_list_1">
+                <li><a href="static.html">Shoppica Hakkında</a></li>
+                <li><a href="static.html">Gizlilik Politikası</a></li>
+                <li><a href="static.html">Kullanım Koşulları</a></li>
+                <li><a href="contacts.html">Bize yazın..</a></li>
+                <li><a href="sitemap.html">Site Haritası</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+<!-- end of content -->

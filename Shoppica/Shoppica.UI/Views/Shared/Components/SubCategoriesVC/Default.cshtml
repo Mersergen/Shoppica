@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Shoppica.UI.Models.CategoryVM>
+
+
+@foreach (CategoryVM item in Model)
+{
+    <div class="s_subcategory">
+        <a href="/product/getproducts/@item.Id">
+            <img src="/images/category_100x100.jpg" title="@item.CategoryName" alt="@item.CategoryName" style="margin-bottom: 3px;" />
+        </a>
+        <a href="/product/getproducts/@item.Id">@item.CategoryName</a>
+    </div>
+}

@@ -1,0 +1,146 @@
+﻿@model IEnumerable<Shoppica.UI.Models.ProductVM>
+@{
+    Layout = "_Layout";
+
+    int k, counter = 1;
+    k = (int)Model.FirstOrDefault().Category.TopId;
+
+    string catName = "";
+    catName = Model.FirstOrDefault().Category.Top == null ? Model.FirstOrDefault().Category.CategoryName : Model.FirstOrDefault().Category.Top.CategoryName;
+}
+<!-- ********************** -->
+<!--     I N T R O          -->
+<!-- ********************** -->
+
+<div id="intro">
+    <div id="intro_wrap">
+        <div class="container_12">
+            <div id="breadcrumbs" class="grid_12">
+                <a href="">Ana Sayfa</a>
+                &gt;
+                <a href="">@catName</a>
+            </div>
+            <h1>@catName</h1>
+        </div>
+    </div>
+</div>
+<!-- end of intro -->
+<!-- ********************** -->
+<!--      C O N T E N T     -->
+<!-- ********************** -->
+<div id="content" class="container_12">
+
+
+    <div id="category" class="grid_9">
+
+        <div class="s_subcategories s_grid_view s_listing clearfix">
+
+            @await Component.InvokeAsync("SubCategoriesVC",new {id=k})
+
+            <div class="clear"></div>
+        </div>
+
+        <div id="listing_options">
+            <div id="listing_sort" class="s_switcher">
+                <span class="s_selected">Default</span>
+                <ul class="s_options" style="display: none;">
+                    <li><a href="">Name A - Z</a></li>
+                    <li><a href="">Name Z - A</a></li>
+                    <li><a href="">Price Low &gt; High</a></li>
+                    <li><a href="">Price High &gt; Low</a></li>
+                    <li><a href="">Rating Highest</a></li>
+                    <li><a href="">Rating Lowest</a></li>
+                    <li><a href="">Model A - Z</a></li>
+                    <li><a href="">Model Z - A</a></li>
+                </ul>
+            </div>
+            <div id="view_mode" class="s_nav">
+                <ul class="clearfix">
+                    <li id="view_grid" class="s_selected"><a href="/product/GetProducts2/@k"><span class="s_icon"></span>Izgara</a></li>
+                    <li id="view_list"><a href="/product/GetProducts/@k"><span class="s_icon"></span>Liste</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="s_listing s_grid_view clearfix">
+
+            @foreach (var item in Model)
+            {
+                <div class="s_item grid_3">
+                    <a class="s_thumb" href="/product/GetProductDetails/@item.Id"><img src="/images/product/@item.Image" title="@item.ProductName" alt="@item.ProductName" /></a>
+
+                    <h3><a href="/product/GetProductDetails/@item.Id">@item.ProductName</a></h3>
+                    <p class="s_model">@item.Category.CategoryName</p>
+
+                    @if (item.IsSpecial == true)
+                    {
+                        <p class="s_price s_promo_price">
+                            <span class="s_old_price">
+                                @string.Format("{0:0.00}",item.UnitPrice) <span class="s_currency s_before">₺</span>
+                            </span>
+                            @string.Format("{0:0.00}",item.Discount) <span class="s_currency s_before">₺</span>
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="s_price"> @string.Format("{0:0.00}",item.UnitPrice) <span class="s_currency s_before">₺</span></p>
+                    }
+                    <a class="s_button_add_to_cart" href="/cart/cartAdd/@item.Id"><span class="s_icon_16"><span class="s_icon"></span>Sepete Ekle</span></a>
+
+                </div>
+
+                if (counter++ % 3 == 0)
+                {
+                    <div class="clear"></div>
+                }
+            }
+        </div>
+    </div>
+
+    <div id="right_col" class="grid_3">
+        <div id="cart_side" class="s_box_1 s_cart_holder">
+            <h2 class="s_secondary_color">Sepetim</h2>
+
+            @await Component.InvokeAsync("CartListVC")
+        </div>
+
+        <div id="categories_module" class="s_box">
+            <h2>Kategoriler</h2>
+            <div class="s_list_1">
+                <ul>
+                    @await Component.InvokeAsync("RightCategoriesVC",new{id=k})
+                </ul>
+            </div>
+        </div>
+
+        <div id="brands_module" class="s_box">
+            <h2>Markalar</h2>
+            <select>
+                <option> --- Seçiminiz! --- </option>
+                @await Component.InvokeAsync("BrandVC")
+            </select>
+        </div>
+
+        <div id="bestseller_side" class="s_box clearfix">
+            <h2>Öne Çıkan Ürünler!</h2>
+
+            @await Component.InvokeAsync("FeaturedVC")
+
+
+        </div>
+
+        <div id="information_module" class="s_box">
+            <h2>Bilgilendirme</h2>
+            <ul class="s_list_1">
+                <li><a href="static.html">Shoppica Hakkında</a></li>
+                <li><a href="static.html">Gizlilik Politikası</a></li>
+                <li><a href="static.html">Kullanım Koşulları</a></li>
+                <li><a href="contacts.html">Bize yazın..</a></li>
+                <li><a href="sitemap.html">Site Haritası</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- end of content -->

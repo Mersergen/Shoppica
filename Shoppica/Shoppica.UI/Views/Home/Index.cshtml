@@ -1,0 +1,64 @@
+﻿ <!-- ********************** -->
+<!--     I N T R O          -->
+<!-- ********************** -->
+<div id="intro">
+    <div id="intro_wrap">
+        <div id="product_intro" class="container_12">
+            @await Component.InvokeAsync("SliderVC")
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/jquery/jquery.slides.js"></script>
+<script type="text/javascript" src="/js/shoppica.products_slide.js"></script>
+<!-- end of intro -->
+<!-- ********************** -->
+<!--      C O N T E N T     -->
+<!-- ********************** -->
+<div id="content" class="container_12">
+
+    <div id="welcome" class="grid_12">
+        <h2>Shoppica'ya Hoş Geldiniz..</h2>
+        <p>
+            Shoppica şık bir premium OpenCart temasıdır (şu anda desteklenen sürümler 1.4.9.3/1.4.9.4'tür). Temiz ve modern tasarım, temayı her türlü çevrimiçi mağaza için kullanmanıza olanak tanır: giysi, aksesuar, hediyelik eşya, elektronik eşya, mobilya, sağlık ve kozmetik mağazası vb.
+        </p>
+        <p>
+            Ana özelliklerden biri, her kategori için farklı türde slayt gösterileri seçmektir, böylece mağazanızın her bölümünü kişiselleştirebilirsiniz. Shoppica, ürün listeleme boyutunu, sütun konumunu ve düzen türünü özelleştirmenize izin vererek, temayı ürününüze veya hizmetinize kolayca uyarlama gücü verir. Renk teması aracıyla sitenin öğelerini değiştirebilir ve mağazanızı benzersiz hale getirebilir ve kalabalığın arasından sıyrılabilirsiniz.
+        </p>
+    </div>
+
+    <div class="clear"></div>
+
+    <div id="special_home" class="grid_12">
+        <h2 class="s_title_1"><span class="s_main_color">İndirimli</span> Ürünler</h2>
+        <div class="clear"></div>
+        <div class="s_listing s_grid_view clearfix">
+
+            @await Component.InvokeAsync("SpecialVC")
+
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div id="latest_home" class="grid_12">
+        <h2 class="s_title_1"><span class="s_main_color">Son Eklenen</span> Ürünler</h2>
+        <div class="clear"></div>
+        <div class="s_listing s_grid_view clearfix">
+
+            @await Component.InvokeAsync("LastAddVC")
+
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div id="critic_stock" class="grid_12">
+        <h2 class="s_title_1"><span class="s_main_color">Sınırlı Sayıda</span> Ürünler</h2>
+        <div class="clear"></div>
+        <div class="s_listing s_grid_view clearfix">
+
+            @await Component.InvokeAsync("CriticStockVC")
+
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<!-- end of content -->

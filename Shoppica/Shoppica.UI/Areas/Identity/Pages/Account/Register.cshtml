@@ -1,0 +1,54 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<!-- ********************** -->
+<!--     I N T R O          -->
+<!-- ********************** -->
+<div id="intro">
+    <div id="intro_wrap">
+        <div class="container_12">
+            <div id="breadcrumbs" class="grid_12">
+                <a asp-action="Index" asp-controller="Home">Ana Sayfa</a>
+                &gt; <a href="cart.html">Yeni Üye</a>
+            </div>
+            <h1>Kayıt ol..</h1>
+        </div>
+    </div>
+</div>
+<!-- end of intro -->
+<!-- ********************** -->
+<!--      C O N T E N T     -->
+<!-- ********************** -->
+<div id="content" class="container_16">
+    <div class="grid_16">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="clearfix">
+            <h2 class="s_title_1"><span class="s_secondary_color">Yeni</span> Hesap</h2>
+            <div class="clear"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="s_row_2 clearfix">
+                <strong><label asp-for="Input.Email" class="required"></label></strong>
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" size="30" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="s_row_2 clearfix">
+                <strong><label asp-for="Input.Password" class="required"></label></strong>
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" size="30" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="s_row_2 clearfix">
+                <strong><label asp-for="Input.ConfirmPassword" class="required"></label></strong>
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" size="30" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button id="registerSubmit" type="submit" class="s_button_1 s_main_color_bgr left"><span class="s_text">Kayıt Ol</span></button>
+            <button id="registerSubmit" type="reset" class="s_button_1 s_ddd_bgr left"><span class="s_text">Temizle</span></button>
+        </form>
+        <br />
+        <br />
+    </div>
+
+</div>
+<!-- end of content -->
